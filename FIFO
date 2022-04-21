@@ -1,0 +1,90 @@
+//FIFO
+//First In First Out
+
+#include<stdio.h>
+int main(){
+    int i,j,k,avail,count=0,a[20],frame[10],len,no;
+    printf("length of reference string: ");
+    scanf("%d",&len);
+    printf("\nEnter reference string: ");
+    for(i=0;i<len;i++)
+    scanf("%d",&a[i]);
+    printf("\nNo. of frames: ");
+    scanf("%d",&no);
+    for(i=0;i<no;i++)
+    frame[i]=-1;
+    j=0;
+    printf("\nReference String\tPage Frames\n");
+    for(i=0;i<len;i++){
+        printf(" %d\t\t",a[i]);
+        avail=0;
+        for(k=0;k<no;k++)
+            if(frame[k]==a[i]){
+                avail=1;
+                break;
+            }
+        if(avail==0){
+            frame[j]=a[i];
+            j=(j+1)%no;
+            count++;
+            for(k=0;k<no;k++)
+            printf(" %d",frame[k]);
+        }
+        printf("\n");
+    }
+    printf("page faults: %d",count);
+    return 0;
+    
+}
+//MINE
+#include<stdio.h>
+
+int main(){
+    
+    int len,a[20],nof,frame[20],i,j,k;
+    int count=0,avail;
+    
+    printf("Length of reference string:");
+    scanf("%d",&len);
+    
+    printf("\nEnter the reference string:");
+    for(i=0;i<len;i++)
+        scanf("%d",&a[i]);
+        
+    printf("\nNumber of frames:");
+    scanf("%d",&nof);
+    
+    for(i=0;i<nof;i++)
+        frame[i]=-1;
+    j=0;
+    
+    printf("\nReference string\tPage  number");
+    for(i=0;i<len;i++)
+        printf("%d\t\t ",a[i]);
+    
+    avail=0;
+    
+    
+    for(k=0;k<nof;k++){
+        if(frame[k]==a[i]){
+            avail=1;
+            break;
+        }
+        
+        if(avail==0){
+            
+            frame[j]=a[i];
+            j=(j+1)%nof;
+            count++;
+            for(k=0;k<nof;k++)
+                printf("%d ",frame[k]);
+        }
+       
+       printf("\n"); 
+    }
+    
+    printf("Page faults: %d",count);
+    
+    return 0;
+    
+}
