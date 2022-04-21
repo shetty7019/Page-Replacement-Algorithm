@@ -1,0 +1,80 @@
+//C program siimulating LRU page replacement
+//Least Recently Used
+
+#include<stdio.h>
+
+int findLRU(int t[],int n){
+    
+    int min=t[0],pos=0,i;
+    for(i=0;i<n;i++){
+          if(t[i]<min){
+            min=t[i];
+            pos=i;
+    }
+  
+    }
+    return pos;
+}
+int main(){
+    
+    int frame[20],nof,page[10],pages,i,j,f1,f2;
+    int fault=0,count=0,pos,t[20];
+    
+    printf("Enter number of frames:");
+    scanf("%d",&nof);
+    
+    printf("\nEnter the number of pages:");
+    scanf("%d",&pages);
+    
+    printf("\nENter the reference string:");
+    for(i=0;i<pages;i++){
+        scanf("%d",&page[i]);
+    }
+    
+    for(i=0;i<nof;i++)
+        frame[i]=-1;
+        
+    for(i=0;i<pages;i++){
+        f1=f2=0;
+            for(j=0;j<nof;j++){
+                if(frame[j]==page[i]){
+                    count++;
+                    t[j]=count;
+                    f1=f2=1;
+                    break;
+                }
+            }
+            
+            if(f1==0){
+                
+                for(j=0;j<nof;j++){
+                    
+                    if(frame[j]==-1){
+                        
+                        count++;
+                        fault++;
+                        t[j]=count;
+                        frame[j]=page[i];
+                        f2=1;
+                        break;
+                    }
+                }
+            }
+            
+            if(f2==0){
+                
+                pos=findLRU(t,nof);
+                count++;
+                fault++;
+                t[pos]=count;
+                frame[pos]=page[i];
+            }
+            printf("\n");
+            for(j=0;j<nof;j++)
+                printf("%d\t",frame[j]);
+    }            
+            printf("\nTotal number of page faults: %d",fault);
+            
+            return 0;
+    
+}
